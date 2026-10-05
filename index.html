@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Etiquetas para que el iPhone la trate como App Nativa -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Airsoft Calc">
+    <link rel="apple-touch-icon" href="https://via.placeholder.com/192/10B981/FFFFFF?text=Airsoft">
+    
+    <title>Airsoft Calc</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white h-screen flex flex-col items-center justify-center p-6 font-sans">
+
+    <div class="bg-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-sm border border-gray-700">
+        <h1 class="text-2xl font-bold text-emerald-400 mb-6 text-center">Calculadora Airsoft</h1>
+        
+        <div class="mb-4">
+            <label class="block text-sm text-gray-400 mb-2">Velocidad (FPS)</label>
+            <input type="number" id="fpsInput" value="350" class="w-full bg-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 text-lg">
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-sm text-gray-400 mb-2">Peso de la bola (g)</label>
+            <select id="bbWeight" class="w-full bg-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 text-lg">
+                <option value="0.20">0.20g</option>
+                <option value="0.25">0.25g</option>
+                <option value="0.28">0.28g</option>
+                <option value="0.30">0.30g</option>
+            </select>
+        </div>
+
+        <button onclick="calcularJulios()" class="w-full bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-bold py-3 rounded-lg transition duration-200">
+            Calcular Potencia
+        </button>
+
+        <div class="mt-8 text-center">
+            <p class="text-sm text-gray-400 uppercase tracking-wide">Resultado</p>
+            <p id="resultado" class="text-5xl font-black text-white mt-2">1.14 J</p>
+        </div>
+    </div>
+
+    <script>
+        function calcularJulios() {
+            const fps = document.getElementById('fpsInput').value;
+            const weightGrams = document.getElementById('bbWeight').value;
+            
+            // Conversión: FPS a Metros por Segundo
+            const mps = fps * 0.3048;
+            // Conversión: Gramos a Kilogramos
+            const kg = weightGrams / 1000;
+            
+            // Fórmula energía cinética: E = 0.5 * m * v^2
+            const julios = 0.5 * kg * Math.pow(mps, 2);
+            
+            document.getElementById('resultado').innerText = julios.toFixed(2) + " J";
+        }
+    </script>
+</body>
+</html>
